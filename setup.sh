@@ -67,7 +67,7 @@ function install_window_manger {
 
 function install_mono {
         echo -e "\e[1;91mInstall Mono: $install_mono\e[0m"
-        if [[ $install_mono == "yes"]];then
+        if [[ $install_mono == *"y"* ]];then
                 if [[ -r setup_mono.sh ]]; then
                         echo -e "\e[1;91mFound Mono Setup Script\e[0m"
                         if [[ -x setup_mono.sh ]]; then 
@@ -89,7 +89,7 @@ function install_git {
 
 function install mono_Winform_test {
         echo -e "\e[1;91mInstall WinFormsTest Application: $install_winformtest\e[0m"
-        if [[ $install_winformtest == "yes" ]];then
+        if [[ $install_winformtest == *"y"* ]];then
                 install_git
                 cd /home/pi/
                 git clone https://github.com/NMCity/WinformsTest.git
