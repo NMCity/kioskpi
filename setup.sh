@@ -83,30 +83,22 @@ function install_mono {
         fi
 }
 
-function install_git {
-        check_for_package "git"
-}
-
 function install_mono_Winform_test {
-        echo -e "\e[1;91mInstall WinFormsTest Application: $install_winformtest\e[0m"
+        echo -e "\e[1;91mInstall WinformsTest Application: $install_winformtest\e[0m"
         if [[ $install_winformtest == *"y"* ]];then
-                if [[ -d /home/pi/WinformsTest ]]; then
-                        cd /home/pi/WinformsTest
-                        git pull
-                        xbuild WinformsTest.sln /t:Rebuild
-                        cd ..
-                        chown -R pi:pi WinformsTest
+                if [[ -r setup_winforms.sh ]]; then
+                        echo -e "\e[1;91mFound Winforms Setup Script\e[0m"
+                        if [[ -x setup_winforms.sh ]]; then 
+                                ./setup_winforms.sh
+                        else
+                                echo -e "\e[1;91mWinforms Setup Script was not executable ... try to set\e[0m"
+                                chmod +x setup_winforms.sh 
+                                ./setup_winforms.sh
+                        fi
                 else
-                        install_git
-                        cd /home/pi/
-                        git clone https://github.com/NMCity/WinformsTest.git
-                        cd ~/WinformsTest
-                        xbuild WinformsTest.sln /t:Rebuild
-                        cd..
-                        chown -R pi:pi WinformsTest
+                        echo -e "\e[1;91mWinforms Setup Script was not found ... skip install mono\e[0m"
                 fi
         fi
-
 }
 
 
