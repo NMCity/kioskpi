@@ -100,6 +100,7 @@ function install_mono_Winform_test {
 function install_auto_login {
         echo -e "\e[1;91mInstall auto login for pi\e[0m"
         if [[ -r /etc/systemd/system/getty@tty1.service.d/autologin.conf ]]; then
+                echo -e "\e[1;91mOld /etc/systemd/system/getty@tty1.service.d/autologin.conf files was deleted\e[0m"
                 rm /etc/systemd/system/getty@tty1.service.d/autologin.conf
         fi
         touch /etc/systemd/system/getty@tty1.service.d/autologin.conf
@@ -111,8 +112,8 @@ function install_auto_login {
 function install_auto_load_openbox {
         echo -e "\e[1;91mInstall auto load $window_manger\e[0m"
         if [[ $window_manger == "openbox" ]]; then
-                echo -e "\e[1;91m$window_manger now loads on boot\e[0m"
                 if [[ -r /etc/rc.loacl ]]; then
+                        echo -e "\e[1;91mOld /etc/rc.local files was deleted\e[0m"
                         rm /etc/rc.loacl
                 fi                
                 touch /etc/rc.local
@@ -141,6 +142,7 @@ function install_auto_load_openbox {
                 echo "" >> /etc/rc.local
                 echo "exit 0" >> /etc/rc.local
                 echo "" >> /etc/rc.local
+                echo -e "\e[1;91m$window_manger now loads on boot\e[0m"
         fi        
 }
 
