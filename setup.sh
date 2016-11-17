@@ -146,7 +146,7 @@ function install_auto_load_openbox {
                 echo "" >> /etc/rc.local
 
                 chmod +x /etc/rc.load
-                
+
                 echo -e "\e[1;91m$window_manger now loads on boot\e[0m"
         fi        
 }
@@ -172,3 +172,5 @@ install_mono
 install_mono_Winform_test
 install_auto_login
 install_auto_load_openbox
+
+reboot
