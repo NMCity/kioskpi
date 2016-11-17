@@ -16,25 +16,23 @@ function install_git {
 }
 
 function install_Winforms {
-        echo -e "\e[1;91mInstall WinFormsTest Application: $install_winformtest\e[0m"
-        if [[ $install_winformtest == *"y"* ]];then
-                if [[ -d /home/pi/WinformsTest ]]; then
-                        cd /home/pi/WinformsTest
-                        git pull
-                        xbuild WinformsTest.sln /t:Rebuild
-                        cd ..
-                        chown -R pi:pi WinformsTest
-                else
-                        install_git
-                        cd /home/pi/
-                        git clone https://github.com/NMCity/WinformsTest.git
-                        cd ~/WinformsTest
-                        xbuild WinformsTest.sln /t:Rebuild
-                        cd..
-                        chown -R pi:pi WinformsTest
-                fi
+        if [[ -d /home/pi/WinformsTest ]]; then
+                echo -e "\e[1;91mUpdate Winforms\e[0m"
+                cd /home/pi/WinformsTest
+                git pull
+                xbuild WinformsTest.sln /t:Rebuild
+                cd ..
+                chown -R pi:pi WinformsTest
+        else
+                echo -e "\e[1;91mInstall Winforms\e[0m"
+                install_git
+                cd /home/pi/
+                git clone https://github.com/NMCity/WinformsTest.git
+                cd ~/WinformsTest
+                xbuild WinformsTest.sln /t:Rebuild
+                cd..
+                chown -R pi:pi WinformsTest
         fi
-
 }
 
 install_Winforms
