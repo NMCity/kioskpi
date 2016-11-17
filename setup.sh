@@ -116,7 +116,7 @@ function install_auto_load_openbox {
         if [[ $window_manger == "openbox" ]]; then
                 if [[ -r /etc/rc.local ]]; then
                         echo -e "\e[1;91mOld /etc/rc.local files was deleted\e[0m"
-                        rm /etc/rc.loacl
+                        rm /etc/rc.local
                 fi                
                 touch /etc/rc.local
                 echo "#!/bin/sh -e" >> /etc/rc.local
