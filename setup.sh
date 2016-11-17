@@ -144,6 +144,9 @@ function install_auto_load_openbox {
                 echo "" >> /etc/rc.local
                 echo "exit 0" >> /etc/rc.local
                 echo "" >> /etc/rc.local
+
+                chmod +x /etc/rc.load
+                
                 echo -e "\e[1;91m$window_manger now loads on boot\e[0m"
         fi        
 }
