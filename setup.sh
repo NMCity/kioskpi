@@ -97,6 +97,54 @@ function install_mono_Winform_test {
         fi
 }
 
+function install_auto_login {
+        if [[ -r /etc/systemd/system/getty@tty1.service.d/autologin.conf ]]; then
+                rm /etc/systemd/system/getty@tty1.service.d/autologin.conf
+        fi
+        touch /etc/systemd/system/getty@tty1.service.d/autologin.conf
+        echo "[Service]" >> /etc/systemd/system/getty@tty1.service.d/autologin.conf
+        echo "ExecStart=" >> /etc/systemd/system/getty@tty1.service.d/autologin.conf
+        echo "ExecStart=-/sbin/agetty --autologin pi --noclear %I 38400 linux" >> /etc/systemd/system/getty@tty1.service.d/autologin.conf
+}
+
+function install_auto_load_openbox {
+        if [[ $window_manger == "openbox" ]]; then
+                if [[ -r /etc/rc.loacl ]]; then
+                        rm /etc/rc.loacl
+                fi                
+                touch /etc/rc.local
+                echo "#!/bin/sh -e" >> /etc/rc.local
+                echo "#" >> /etc/rc.local
+                echo "# rc.local" >> /etc/rc.local
+                echo "#" >> /etc/rc.local
+                echo "# This script is executed at the end of each multiuser runlevel." >> /etc/rc.local
+                echo "# Make sure that the script will "exit 0" on success or any other" >> /etc/rc.local
+                echo "# value on error." >> /etc/rc.local
+                echo "#" >> /etc/rc.local
+                echo "# In order to enable or disable this script just change the execution" >> /etc/rc.local
+                echo "# bits." >> /etc/rc.local
+                echo "#" >> /etc/rc.local
+                echo "# By default this script does nothing." >> /etc/rc.local
+                echo "" >> /etc/rc.local
+                echo "# Print the IP address" >> /etc/rc.local
+                echo "_IP=$(hostname -I) || true" >> /etc/rc.local
+                echo "if [ "$_IP" ]; then" >> /etc/rc.local
+                echo "  printf 'My IP address is %s\n' '$_IP'" >> /etc/rc.local
+                echo "fi" >> /etc/rc.local
+                echo "" >> /etc/rc.local
+                echo "sudo -u pi xinit /usr/bin/openbox&" >> /etc/rc.local
+                echo "export DISPLAY=:0" >> /etc/rc.local
+                echo "sudo -u pi mono /home/pi/WinformsTest/WinFormsTest/bin/Debug/WinFormsTest.exe" >> /etc/rc.local
+                echo "" >> /etc/rc.local
+                echo "exit 0" >> /etc/rc.local
+                echo "" >> /etc/rc.local
+        fi        
+}
+
+
+
+
+
 
 # Make sure only root can run our script
 if [ "$(id -u)" != "0" ]; then
@@ -112,4 +160,5 @@ install_min_x
 install_window_manger
 install_mono
 install_mono_Winform_test
-
+install_auto_login
+install_auto_load_openbox
