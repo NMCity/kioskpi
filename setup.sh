@@ -90,15 +90,21 @@ function install_git {
 function install_mono_Winform_test {
         echo -e "\e[1;91mInstall WinFormsTest Application: $install_winformtest\e[0m"
         if [[ $install_winformtest == *"y"* ]];then
-                install_git
-                cd /home/pi/
-                git clone https://github.com/NMCity/WinformsTest.git
-                chown -R pi:pi WinformsTest
-                su pi
-                cd ~/WinformsTest
-                xbuild WinformsTest.sln /t:Rebuild
-                cd
-                sudo -i
+                if [[ -d /home/pi/WinformsTest ]]; then
+                        cd /home/pi/WinformsTest
+                        git pull
+                        xbuild WinformsTest.sln /t:Rebuild
+                        cd ..
+                        chown -R pi:pi WinformsTest
+                else
+                        install_git
+                        cd /home/pi/
+                        git clone https://github.com/NMCity/WinformsTest.git
+                        cd ~/WinformsTest
+                        xbuild WinformsTest.sln /t:Rebuild
+                        cd..
+                        chown -R pi:pi WinformsTest
+                fi
         fi
 
 }
