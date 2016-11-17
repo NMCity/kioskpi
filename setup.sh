@@ -6,9 +6,10 @@
 #Paramerters
 
 # Window Manager: Examples are "dwm", "openbox", ...
-window_manger="dmw"
-# Install Mono: yes or no
+window_manger="openbox"
+# Switches: yes or no
 install_mono="yes"
+install_winformtest="yes"
 
 
 
@@ -65,18 +66,41 @@ function install_window_manger {
 }
 
 function install_mono {
-        if [[ -r setup_mono.sh ]]; then
-                echo -e "\e[1;91mFound Mono Setup Script\e[0m"
-                if [[ -x setup_mono.sh ]]; then 
-                        setup_mono.sh
+        echo -e "\e[1;91mInstall Mono: $install_mono\e[0m"
+        if [[ $install_mono == "yes"]];then
+                if [[ -r setup_mono.sh ]]; then
+                        echo -e "\e[1;91mFound Mono Setup Script\e[0m"
+                        if [[ -x setup_mono.sh ]]; then 
+                                ./setup_mono.sh
+                        else
+                                echo -e "\e[1;91mMono Setup Script was not executable ... try to set\e[0m"
+                                chmod +x setup_mono.sh 
+                                ./setup_mono.sh
+                        fi
                 else
-                       echo -e "\e[1;91mMono Setup Script was not executable ... try to set\e[0m"
-                       chmod +x setup_mono.sh 
-                       setup_mono.sh
+                        echo -e "\e[1;91mMono Setup Script was not found ... skip install mono\e[0m"
                 fi
-        else
-                echo -e "\e[1;91mMono Setup Script was not found ... skip install mono\e[0m"
         fi
+}
+
+function install_git {
+        check_for_package "git"
+}
+
+function install mono_Winform_test {
+        echo -e "\e[1;91mInstall WinFormsTest Application: $install_winformtest\e[0m"
+        if [[ $install_winformtest == "yes" ]];then
+                install_git
+                cd /home/pi/
+                git clone https://github.com/NMCity/WinformsTest.git
+                chown -R pi:pi WinformsTest
+                su pi
+                cd ~/WinformsTest
+                xbuild WinformsTest.sln /t:Rebuild
+                cd
+                sudo -i
+        fi
+
 }
 
 
@@ -93,4 +117,5 @@ system_upgrade
 install_min_x
 install_window_manger
 install_mono
+install_winformtest
 
