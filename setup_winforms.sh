@@ -28,7 +28,7 @@ function install_Winforms {
                 install_git
                 cd /home/pi/
                 git clone https://github.com/NMCity/WinformsTest.git
-                cd ~/WinformsTest
+                cd /home/pi/WinformsTest
                 xbuild WinFormsTest.sln /t:Rebuild
                 cd..
                 chown -R pi:pi WinformsTest
