@@ -73,9 +73,7 @@ function install_mono {
                         if [[ -x setup_mono.sh ]]; then 
                                 ./setup_mono.sh
                         else
-                                echo -e "\e[1;91mMono Setup Script was not executable ... try to set\e[0m"
-                                chmod +x setup_mono.sh 
-                                ./setup_mono.sh
+                                bash ./setup_mono.sh
                         fi
                 else
                         echo -e "\e[1;91mMono Setup Script was not found ... skip install mono\e[0m"
@@ -90,10 +88,8 @@ function install_mono_Winform_test {
                         echo -e "\e[1;91mFound Winforms Setup Script\e[0m"
                         if [[ -x setup_winforms.sh ]]; then 
                                 ./setup_winforms.sh
-                        else
-                                echo -e "\e[1;91mWinforms Setup Script was not executable ... try to set\e[0m"
-                                chmod +x setup_winforms.sh 
-                                ./setup_winforms.sh
+                        else 
+                                bash ./setup_winforms.sh
                         fi
                 else
                         echo -e "\e[1;91mWinforms Setup Script was not found ... skip install mono\e[0m"
