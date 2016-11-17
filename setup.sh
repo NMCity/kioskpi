@@ -87,7 +87,7 @@ function install_git {
         check_for_package "git"
 }
 
-function install mono_Winform_test {
+function install_mono_Winform_test {
         echo -e "\e[1;91mInstall WinFormsTest Application: $install_winformtest\e[0m"
         if [[ $install_winformtest == *"y"* ]];then
                 install_git
@@ -117,5 +117,5 @@ system_upgrade
 install_min_x
 install_window_manger
 install_mono
-install_winformtest
+install_mono_Winform_test
 
