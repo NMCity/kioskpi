@@ -10,6 +10,8 @@ window_manger="openbox"
 # Switches: yes or no
 install_mono="yes"
 install_winformtest="yes"
+#Command run in window manager 
+execution_command="mono /home/pi/WinformsTest/WinFormsTest/bin/Debug/WinFormsTest.exe"
 
 
 
@@ -112,7 +114,7 @@ function install_auto_login {
 function install_auto_load_openbox {
         echo -e "\e[1;91mInstall auto load $window_manger\e[0m"
         if [[ $window_manger == "openbox" ]]; then
-                if [[ -r /etc/rc.loacl ]]; then
+                if [[ -r /etc/rc.local ]]; then
                         echo -e "\e[1;91mOld /etc/rc.local files was deleted\e[0m"
                         rm /etc/rc.loacl
                 fi                
@@ -138,7 +140,7 @@ function install_auto_load_openbox {
                 echo "" >> /etc/rc.local
                 echo "sudo -u pi xinit /usr/bin/openbox&" >> /etc/rc.local
                 echo "export DISPLAY=:0" >> /etc/rc.local
-                echo "sudo -u pi mono /home/pi/WinformsTest/WinFormsTest/bin/Debug/WinFormsTest.exe" >> /etc/rc.local
+                echo "sudo -u pi $execution_command" >> /etc/rc.local
                 echo "" >> /etc/rc.local
                 echo "exit 0" >> /etc/rc.local
                 echo "" >> /etc/rc.local
