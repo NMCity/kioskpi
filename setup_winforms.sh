@@ -20,7 +20,7 @@ function install_Winforms {
                 echo -e "\e[1;91mUpdate Winforms\e[0m"
                 cd /home/pi/WinformsTest
                 git pull
-                xbuild WinformsTest.sln /t:Rebuild
+                xbuild WinFormsTest.sln /t:Rebuild
                 cd ..
                 chown -R pi:pi WinformsTest
         else
@@ -29,7 +29,7 @@ function install_Winforms {
                 cd /home/pi/
                 git clone https://github.com/NMCity/WinformsTest.git
                 cd ~/WinformsTest
-                xbuild WinformsTest.sln /t:Rebuild
+                xbuild WinFormsTest.sln /t:Rebuild
                 cd..
                 chown -R pi:pi WinformsTest
         fi
